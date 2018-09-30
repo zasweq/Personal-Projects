@@ -1,0 +1,122 @@
+import pygame
+import time
+import random
+
+pygame.init() #all the time
+
+display_width = 800
+display_height = 600
+
+black = (0,0,0)
+white = (255, 255, 255)
+red = (255, 0, 0)
+
+carWidth = 100
+
+carImg = pygame.image.load('benz.png')
+
+carImg = pygame.transform.scale(carImg, (100, 160))
+
+gameDisplay = pygame.display.set_mode((display_width, display_height)) #always, creates window
+pygame.display.set_caption('Racecar')
+
+clock = pygame.time.Clock()
+
+
+def things(thingx, thingy, thingw, thingh, color):
+    pygame.draw.rect(gameDisplay, color, [thingx, thingy, thingw, thingh])
+
+
+def car(x, y):
+    gameDisplay.blit(carImg, (x,y))
+
+
+def things_dodged(count):
+    font = pygame.font.SysFont(None, 25)
+    text = font.render("Dodged: " + str(count), True, black)
+    gameDisplay.blit(text, (0, 0))
+
+
+def crash():
+    message_display('You Crashed')
+
+
+def message_display(text):
+    largeText = pygame.font.Font('freesansbold.ttf', 115)
+    TextSurf, TextRect = text_objects(text, largeText)
+    TextRect.center = ((display_width/2),(display_height/2))
+    gameDisplay.blit(TextSurf, TextRect)
+    pygame.display.update()
+    time.sleep(2) #Suspends time for two seconds
+
+
+def text_objects(text, font): #I don't understand what this means
+    textSurface = font.render(text, True, black)
+    return textSurface, textSurface.get_rect()
+
+
+def game_loop():
+    x = (display_width*.5)
+    y = (display_height*.8)
+
+    x_change = 0
+
+    thing_startx = random.randrange(0,display_width)
+    thing_starty = -600
+    thing_speed = 7 #speed gets added to y to make it go down, as top left corner is (0,0)
+    thing_width = 100
+    thing_height = 100
+    dodged = 0
+
+
+    gameExit = False
+    while not gameExit:
+        for event in pygame.event.get(): #for loops in and then add range for numbers
+            if event.type == pygame.QUIT:
+                pygame.quit() #changed this from making gameExit true to calling these two functions
+                quit()
+            #print (event)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    x_change = -5
+                elif event.key == pygame.K_RIGHT:
+                    x_change = 5
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT: #what is the point of this
+                    x_change = 0
+
+        x+=x_change
+
+        gameDisplay.fill(white) #why do we need to have this every time?
+        car(x,y)
+        things_dodged(dodged)
+
+        things(thing_startx, thing_starty, thing_width, thing_height, black) #creating an object
+        thing_starty += thing_speed
+
+        if x > display_width-carWidth or x<0:
+            crash()
+            game_loop()
+
+        if thing_starty>display_height: #when the block goes through the screen, goes back to the top
+            thing_starty=0 - thing_height
+            thing_startx = random.randrange(0,display_width)
+            dodged+=1
+            thing_speed+=1
+
+        if y < thing_starty+thing_height:
+            print('y crossover')
+            #checks if left or right point of car is within boundaries, figure out what order of logical statements is
+            if x > thing_startx and x < thing_startx + thing_width or x + carWidth > thing_startx and x + carWidth < thing_startx + thing_width:
+                print('x crossover')
+                crash()
+                game_loop()
+
+        pygame.display.update()
+
+        clock.tick(60) #what does this do?
+
+game_loop() #Guess functions can't call forward? Also didn't add this first time and my program just quit
+
+pygame.quit()
+quit()
