@@ -38,7 +38,7 @@ test = data[4400:] #20% of data used for learning
 #print(learn.v2)
 
 perform(
-    [ #move these around so it doesn't look like a carbon copy, learn what each of them do, maybe delete the ones with parameters
+    [
         BernoulliNB(), #naive bayes classifier
         # considers features to contribute independently, regardless of correlations between feature
         RandomForestClassifier(n_estimators=100, n_jobs=-1),
@@ -92,8 +92,6 @@ CalibratedClassifierCV with HashingVectorizer. Has score: 0.9820819112627986
 DummyClassifier with CountVectorizer. Has score: 0.7525597269624573
 DummyClassifier with TfidfVectorizer. Has score: 0.7610921501706485
 DummyClassifier with HashingVectorizer. Has score: 0.7824232081911263
-C:\Users\Zach\PycharmProjects\messageclassification\venv\lib\site-packages\sklearn\linear_model\stochastic_gradient.py:128: FutureWarning: max_iter and tol parameters have been added in <class 'sklearn.linear_model.passive_aggressive.PassiveAggressiveClassifier'> in 0.19. If both are left unset, they default to max_iter=5 and tol=None. If tol is not None, max_iter defaults to max_iter=1000. From 0.21, default max_iter will be 1000, and default tol will be 1e-3.
-  "and default tol will be 1e-3." % type(self), FutureWarning)
 PassiveAggressiveClassifier with CountVectorizer. Has score: 0.9837883959044369
 PassiveAggressiveClassifier with TfidfVectorizer. Has score: 0.984641638225256
 PassiveAggressiveClassifier with HashingVectorizer. Has score: 0.9837883959044369
@@ -103,8 +101,6 @@ RidgeClassifier with HashingVectorizer. Has score: 0.9820819112627986
 RidgeClassifierCV with CountVectorizer. Has score: 0.9829351535836177
 RidgeClassifierCV with TfidfVectorizer. Has score: 0.9837883959044369
 RidgeClassifierCV with HashingVectorizer. Has score: 0.9803754266211604
-C:\Users\Zach\PycharmProjects\messageclassification\venv\lib\site-packages\sklearn\linear_model\stochastic_gradient.py:128: FutureWarning: max_iter and tol parameters have been added in <class 'sklearn.linear_model.stochastic_gradient.SGDClassifier'> in 0.19. If both are left unset, they default to max_iter=5 and tol=None. If tol is not None, max_iter defaults to max_iter=1000. From 0.21, default max_iter will be 1000, and default tol will be 1e-3.
-  "and default tol will be 1e-3." % type(self), FutureWarning)
 SGDClassifier with CountVectorizer. Has score: 0.9795221843003413
 SGDClassifier with TfidfVectorizer. Has score: 0.9872013651877133
 SGDClassifier with HashingVectorizer. Has score: 0.9837883959044369
