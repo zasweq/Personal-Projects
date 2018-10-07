@@ -2,7 +2,7 @@
 These are two Personal Projects that I coded this summer to help teach myself code.
 
 The message classifier loops through multiple
-classification methods from the Scikit Learn package of Python. The data of messages was pulled from Kaggle.com, which I split into train
+classification methods from the Scikit-learn package of Python. The data of messages was pulled from Kaggle.com, which I split into train
 and test cases in an 80/20 split. Then, I "vectorized" the messages, which converts the text message to a multidimensional vector. Once the
 text is represented in this vector format, you can then apply the Scikit models to help classify. I looped through both the "vectorizers" and
 the "classifiers", and chose the one with the best accurarcy. I could not tell you in detail what each of the models do, but I knew how to
